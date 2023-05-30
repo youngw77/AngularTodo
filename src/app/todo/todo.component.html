@@ -1,1 +1,68 @@
-<p>todo works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3" style="background: #303030;height:93vh">
+            <mat-card class="mt-3">
+                <form [formGroup]="todoForm">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Todo List</mat-label>
+                        <input formControlName="item" matInput placeholder="Placeholder">
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                        <mat-hint>add Todo</mat-hint>
+                    </mat-form-field>
+                    <button (click)="addTask()" mat-raised-button [disabled]="todoForm.invalid" color="primary">Add</button>
+                </form>
+            </mat-card>
+        </div>
+        <div class="col-md-9">
+            <div cdkDropListGroup>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="example-container">
+                            <h2>Todo</h2>
+                          
+                            <div
+                              cdkDropList
+                              #todoList="cdkDropList"
+                              [cdkDropListData]="todo"
+                              [cdkDropListConnectedTo]="[doneList]"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">
+                              <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.description}}</div>
+                            </div>
+                          </div>
+                          
+                          <div class="example-container">
+                            <h2>InProgress</h2>
+                          
+                            <div
+                              cdkDropList
+                              #doneList="cdkDropList"
+                              [cdkDropListData]="inprogress"
+                              [cdkDropListConnectedTo]="[todoList]"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">
+                              <div class="example-box" *ngFor="let item of inprogress" cdkDrag>{{item.description}}</div>
+                            </div>
+                          </div>
+
+                            <h2>Done</h2>
+                            <div
+                              cdkDropList
+                              #doneList="cdkDropList"
+                              [cdkDropListData]="done"
+                              [cdkDropListConnectedTo]="[todoList]"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">
+                              <div class="example-box" *ngFor="let item of done" cdkDrag>{{item.description}}</div>
+                          </div>
+                          
+                          
+                    </div>
+                    <div class="col-md-4">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
